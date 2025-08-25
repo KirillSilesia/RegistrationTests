@@ -2,8 +2,25 @@ from selenium.common import TimeoutException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+
 
 class MainPage:
+
+    ENGLISH_LANGUAGE_ELEMENTS = [
+        ((By.XPATH, "//button[text()='Log in']"), "Log in"),
+        ((By.XPATH, "//button[text()='Register']"), "Register"),
+        ((By.XPATH, "//button[text()='Submit an application for the school']"), "Submit an application for the school")
+    ]
+
+    UKRANIAN_LANGUAGE_ELEMENTS = [
+        ((By.XPATH, "//button[text()='Увійти']"), "Увійти"),
+        ((By.XPATH, "//button[text()='Зареєструватися']"), "Зареєструватися"),
+        ((By.XPATH, "//button[text()='Подати заявку до школи']"), "Подати заявку до школи")
+    ]
+
     def __init__(self, driver):
         self.driver = driver
         self.registration_button = (By.XPATH, "//*[contains(text(), 'Zarejestruj się')]")
@@ -11,11 +28,60 @@ class MainPage:
         self.language_button = (By.CLASS_NAME, "lang-switcher-caret")
         self.english_button = (By.CLASS_NAME, "lang-switcher-option")
         self.ukranian_button = (By.CSS_SELECTOR, "lang-switcher-option")
+        self.suggestions_button = (By.XPATH, "//button[@aria-label='Dodaj sugestię']")
+        self.suggestions_input = (By.XPATH, "//textarea[@placeholder='Co chcesz ulepszyć albo co nie działa?']")
+        self.suggestions_send_button = (By.CLASS_NAME, "btn-primary")
+        self.suggestions_success_message = (By.XPATH, "//*[contains(text(), 'Dziękujemy')]")
+        self.suggestions_error_message = (By.XPATH, "//*[contains(text(), 'Napisz proszę')]")
 
     def go_to_registration(self):
         WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable(self.registration_button)
         ).click()
+
+    def go_to_suggestions(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.suggestions_button)
+        ).click()
+
+    def valid_suggestion_message(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.suggestions_input)
+        ).send_keys("Wow! cool app!")
+
+    def invalid_suggestion_message(self, chunk="text", chunk_size=100, repetitions=501):
+        field = self.driver.find_element(*self.suggestions_input)
+        full_text = chunk * repetitions
+        for i in range(0, len(full_text), chunk_size):
+                field.send_keys(full_text[i:i + chunk_size])
+
+    def get_real_length(self):
+        field = self.driver.find_element(*self.suggestions_input)
+        value = field.get_attribute("value")
+        return len(value)
+
+    def is_pasted_fully(self):
+        actual_length = self.get_real_length()
+        expected_length = 2004
+        if actual_length != expected_length:
+            return True
+        else:
+            raise AssertionError
+
+    def send_suggestion(self):
+        self.driver.find_element(*self.suggestions_send_button).click()
+
+    def get_suggestions_success_message(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.suggestions_success_message)
+        )
+        return self.driver.find_element(*self.suggestions_success_message).text
+
+    def get_suggestions_error_message(self):
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.suggestions_error_message)
+        )
+        return self.driver.find_element(*self.suggestions_error_message).text
 
     def go_to_login(self):
         WebDriverWait(self.driver, 10).until(
@@ -27,16 +93,6 @@ class MainPage:
             EC.presence_of_element_located(self.language_button)
         )
         self.driver.execute_script("arguments[0].click();", button)
-
-    # def change_lang_to_english(self):
-    #     wait = WebDriverWait(self.driver, 5)
-    #     # Wait until language buttons are present
-    #     lang_buttons = wait.until(EC.presence_of_all_elements_located((By.CLASS_NAME, "lang-switcher-option")))
-    #     # Click button that contains the 🇬🇧 emoji text
-    #     for button in lang_buttons:
-    #         if '🇬🇧' in button.text:
-    #             button.click()
-    #             break
 
     def change_lang_to_english(self):
         wait = WebDriverWait(self.driver, 15)
@@ -82,14 +138,27 @@ class MainPage:
         else:
             raise Exception("Ukranian language button with 🇺🇦 not found")
 
-    # def verify_language_change(self, locators_with_expected_texts):
-    #     for locator, expected_text in locators_with_expected_texts:
-    #         element = WebDriverWait(self.driver, 10).until(
-    #             EC.visibility_of_element_located(locator)
-    #         )
-    #         actual_text = element.text
-    #         assert actual_text == expected_text, f"Expected '{expected_text}' got '{actual_text}'"
-    def verify_language_change(self, locators_with_expected_texts):
+    def verify_english_language_change(self, locators_with_expected_texts=None):
+        if locators_with_expected_texts is None:
+            locators_with_expected_texts = self.ENGLISH_LANGUAGE_ELEMENTS
+        for (by, locator), expected_text in locators_with_expected_texts:
+            try:
+                element = WebDriverWait(self.driver, 5).until(
+                    EC.element_to_be_clickable((by, locator))
+                )
+                actual_text = element.text.strip()
+                if actual_text != expected_text:
+                    print(f"Text mismatch: expected '{expected_text}', got '{actual_text}'")
+                    raise AssertionError(f"Text mismatch: expected '{expected_text}', got '{actual_text}'")
+            except TimeoutException:
+                raise AssertionError(
+                    f"Timeout error: element ({by}, {locator}) not clickable or not found in time. Expected text: '{expected_text}'"
+                )
+        return True
+
+    def verify_ukranian_language_change(self, locators_with_expected_texts=None):
+        if locators_with_expected_texts is None:
+            locators_with_expected_texts = self.UKRANIAN_LANGUAGE_ELEMENTS
         for (by, locator), expected_text in locators_with_expected_texts:
             try:
                 element = WebDriverWait(self.driver, 5).until(
