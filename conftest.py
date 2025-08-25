@@ -5,10 +5,12 @@ from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 import config
 
-
-@pytest.fixture
+@pytest.fixture(scope="function")
 def driver():
     chrome_options = Options()
+    # Set browser language to Polish
+    chrome_options.add_experimental_option('prefs', {'intl.accept_languages': 'pl'})
+    chrome_options.add_argument("--lang=pl")
     chrome_options.add_argument("--start-maximized")
     chrome_options.add_argument("--disable-infobars")
     chrome_options.add_argument("--incognito")
