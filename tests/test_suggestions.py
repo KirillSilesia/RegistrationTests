@@ -1,4 +1,4 @@
-from conftest import driver
+from tests.conftest import driver
 from pages.main_page import MainPage
 import pytest
 @pytest.mark.e2e

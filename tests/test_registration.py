@@ -1,11 +1,5 @@
-from generators.email_generators import email_random
-from pages import registration_page
-from utils.assertions import assert_url_contains
 from pages.main_page import MainPage
 from pages.registration_page import RegistrationPage
-from generators import email_generators
-from generators import password_generators
-import config
 import pytest
 
 @pytest.mark.e2e

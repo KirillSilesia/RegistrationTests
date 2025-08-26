@@ -1,6 +1,5 @@
 from selenium.webdriver.common.by import By
 from generators.email_generators import *
-from generators.password_generators import *
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
