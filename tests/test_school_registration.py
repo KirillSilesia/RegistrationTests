@@ -167,7 +167,7 @@ def test_school_registration_invalid_no_domen_email(driver):
     main_page.fill_valid_school_submitter_name()
     main_page.fill_valid_school_submitter_role()
     main_page.fill_valid_school_contact_phone()
-    main_page.fill_no_domen_school_contact_email()
+    main_page.fill_no_domain_school_contact_email()
     main_page.accept_school_terms()
     main_page.accept_school_gdpr()
     main_page.click_on_voivodeship()

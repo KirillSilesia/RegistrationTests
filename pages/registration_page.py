@@ -32,11 +32,11 @@ class RegistrationPage:
         )
         self.driver.find_element(*self.email_input).send_keys(random_email_special())
 
-    def fill_no_domen_email(self):
+    def fill_no_domain_email(self):
         email_element = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.email_input)
         )
-        self.driver.find_element(*self.email_input).send_keys(random_email_no_domen())
+        self.driver.find_element(*self.email_input).send_keys(random_email_no_domain())
 
     def fill_double_at_email(self):
         email_element = WebDriverWait(self.driver, 10).until(
@@ -105,7 +105,7 @@ class RegistrationPage:
         return self.driver.find_element(*self.success_message).text
 
     def get_error_message(self):
-        error_element = WebDriverWait(self.driver, 10).until(
+        WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.error_message)
         )
         return self.driver.find_element(*self.error_message).text

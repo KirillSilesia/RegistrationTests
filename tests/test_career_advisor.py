@@ -1,7 +1,6 @@
 from conftest import *
 from pages.logged_in_page import *
 from pages.career_advisor_page import *
-import time
 
 def test_access_career_advisor(driver_with_login):
     logged_in_page = LoggedInPage(driver_with_login)

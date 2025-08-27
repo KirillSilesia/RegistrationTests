@@ -120,8 +120,8 @@ class MainPage:
     def fill_special_school_contact_email(self):
         self.driver.find_element(*self.school_contact_email).send_keys(random_email_special())
 
-    def fill_no_domen_school_contact_email(self):
-        self.driver.find_element(*self.school_contact_email).send_keys(random_email_no_domen())
+    def fill_no_domain_school_contact_email(self):
+        self.driver.find_element(*self.school_contact_email).send_keys(random_email_no_domain())
 
     def fill_double_at_school_contact_email(self):
         self.driver.find_element(*self.school_contact_email).send_keys(random_email_double_at())

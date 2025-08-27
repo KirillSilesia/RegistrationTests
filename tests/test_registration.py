@@ -40,7 +40,7 @@ def test_registration_no_domen_email(driver):
 
     main_page.go_to_registration()
 
-    registration_page.fill_no_domen_email()
+    registration_page.fill_no_domain_email()
     registration_page.fill_username()
     registration_page.fill_valid_password()
     registration_page.fill_repeat_valid_password()
