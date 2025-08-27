@@ -1,8 +1,5 @@
-from tests.conftest import driver
 from pages.main_page import MainPage
-import pytest
-@pytest.mark.e2e
-@pytest.mark.regression
+from conftest import *
 
 def test_language_change_to_english(driver):
     main_page = MainPage(driver)

@@ -9,15 +9,15 @@ from generators.nip_generators import *
 class MainPage:
 
     ENGLISH_LANGUAGE_ELEMENTS = [
-        ((By.XPATH, "//button[text()='Log in']"), "Log in"),
-        ((By.XPATH, "//button[text()='Register']"), "Register"),
-        ((By.XPATH, "//button[text()='Submit an application for the school']"), "Submit an application for the school")
+        ((By.CSS_SELECTOR, "button.btn.btn--small:nth-of-type(1)"), "Log in"),
+        ((By.CSS_SELECTOR, "button.btn.btn--small:nth-of-type(2)"), "Register"),
+        ((By.CSS_SELECTOR, "button.btn.btn--small:nth-of-type(3)"), "Submit an application for school")
     ]
 
     UKRANIAN_LANGUAGE_ELEMENTS = [
-        ((By.XPATH, "//button[text()='Увійти']"), "Увійти"),
-        ((By.XPATH, "//button[text()='Зареєструватися']"), "Зареєструватися"),
-        ((By.XPATH, "//button[text()='Подати заявку до школи']"), "Подати заявку до школи")
+        ((By.CSS_SELECTOR, "button.btn.btn--small:nth-of-type(1)"), "Увійти"),
+        ((By.CSS_SELECTOR, "button.btn.btn--small:nth-of-type(2)"), "Зареєструватися"),
+        ((By.CSS_SELECTOR, "button.btn.btn--small:nth-of-type(3)"), "Подати заявку до школи")
     ]
 
     def __init__(self, driver):
@@ -51,6 +51,8 @@ class MainPage:
         self.school_gdpr_accepted = (By.ID, "gdprAccepted")
         self.silesian_voivodeship = (By.XPATH, "//*[contains(text(), 'śląskie')]")
         self.school_error_message = (By.CLASS_NAME, "school-reg-error")
+
+
 
     def go_to_registration(self):
         WebDriverWait(self.driver, 10).until(

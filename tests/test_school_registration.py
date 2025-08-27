@@ -1,8 +1,6 @@
 from pages.main_page import MainPage
-import pytest
+from conftest import *
 
-@pytest.mark.e2e
-@pytest.mark.regression
 def test_school_registration_valid_data(driver):
     main_page = MainPage(driver)
 

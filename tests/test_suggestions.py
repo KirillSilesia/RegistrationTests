@@ -1,8 +1,5 @@
-from tests.conftest import driver
 from pages.main_page import MainPage
-import pytest
-@pytest.mark.e2e
-@pytest.mark.regression
+from conftest import *
 
 def test_send_valid_suggestion(driver):
     main_page = MainPage(driver)
