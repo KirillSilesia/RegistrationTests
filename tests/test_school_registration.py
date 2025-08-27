@@ -152,7 +152,7 @@ def test_school_registration_invalid_special_email(driver):
     main_page.choose_voivodeship()
     assert main_page.school_error() is not True
 
-def test_school_registration_invalid_no_domen_email(driver):
+def test_school_registration_invalid_no_domain_email(driver):
     main_page = MainPage(driver)
 
     main_page.go_to_school_registration()
