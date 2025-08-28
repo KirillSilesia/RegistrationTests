@@ -7,6 +7,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 import config
+from utils.global_utils import *
 
 
 @pytest.fixture(scope="function")
@@ -27,6 +28,7 @@ def driver():
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=chrome_options)
     driver.get(config.BASE_URL)
+    driver.wait = WebDriverWait(driver, 15)
 
     yield driver
     driver.quit()
@@ -49,5 +51,12 @@ def driver_with_login(driver):
     submit_button = driver.find_element(By.XPATH, "//button[contains(text(), 'Zaloguj się')]")
     submit_button.click()
     wait.until(EC.presence_of_element_located((By.CLASS_NAME, 'welcome')))
+
+    current_theme = driver.find_element(By.TAG_NAME, "html").get_attribute("data-theme")
+    if current_theme != "light":
+        choose_theme = driver.find_element(By.CLASS_NAME, "theme-icon")
+        choose_theme.click()
+        light_theme = wait.until(EC.presence_of_element_located((By.XPATH, "//*[contains(@class, 'theme-option is-active') and contains(text(), 'Jasny')]")))
+        light_theme.click()
 
     yield driver

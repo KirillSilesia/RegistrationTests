@@ -1,7 +1,5 @@
-from selenium.webdriver.common.by import By
 from generators.email_generators import *
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
+from utils.global_utils import *
 
 class RegistrationPage:
     def __init__(self, driver):
@@ -21,40 +19,22 @@ class RegistrationPage:
         self.checkbox_error_message = (By.CLASS_NAME, "school-reg-error")
 
     def fill_valid_email(self):
-        email_element = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.email_input)
-        )
-        email_element.send_keys(random_email())
+        self.driver.wait.until(EC.visibility_of_element_located(self.email_input)).send_keys(random_email())
 
     def fill_special_email(self):
-        email_element = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.email_input)
-        )
-        self.driver.find_element(*self.email_input).send_keys(random_email_special())
+        self.driver.wait.until(EC.visibility_of_element_located(self.email_input)).send_keys(random_email_special())
 
     def fill_no_domain_email(self):
-        email_element = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.email_input)
-        )
-        self.driver.find_element(*self.email_input).send_keys(random_email_no_domain())
+        self.driver.wait.until(EC.visibility_of_element_located(self.email_input)).send_keys(random_email_no_domain())
 
     def fill_double_at_email(self):
-        email_element = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.email_input)
-        )
-        self.driver.find_element(*self.email_input).send_keys(random_email_double_at())
+        self.driver.wait.until(EC.visibility_of_element_located(self.email_input)).send_keys(random_email_double_at())
 
     def fill_without_at_email(self):
-        email_element = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.email_input)
-        )
-        self.driver.find_element(*self.email_input).send_keys(random_email_without_at())
+        self.driver.wait.until(EC.visibility_of_element_located(self.email_input)).send_keys(random_email_without_at())
 
     def fill_existing_email(self):
-        email_element = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.email_input)
-        )
-        self.driver.find_element(*self.email_input).send_keys("johnsenior12345678@gmail.com")
+        self.driver.wait.until(EC.visibility_of_element_located(self.email_input)).send_keys("johnsenior12345678@gmail.com")
 
     def fill_username(self):
         self.driver.find_element(*self.username_input).send_keys("John doe")
@@ -93,31 +73,20 @@ class RegistrationPage:
         self.driver.find_element(*self.gdpr_checkbox).click()
 
     def submit_registration(self):
-        register_element = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.registration_submit_button)
-        )
-        self.driver.find_element(*self.registration_submit_button).click()
+        self.driver.wait.until(EC.visibility_of_element_located(self.registration_submit_button)).click()
 
     def get_success_message(self):
-        message_element = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.success_message)
-        )
+        self.driver.wait.until(EC.visibility_of_element_located(self.success_message))
         return self.driver.find_element(*self.success_message).text
 
     def get_error_message(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.error_message)
-        )
+        self.driver.wait.until(EC.visibility_of_element_located(self.error_message))
         return self.driver.find_element(*self.error_message).text
 
     def checkbox_error_message(self):
-        checkbox_element = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.checkbox_error_message)
-        )
+        self.driver.wait.until(EC.visibility_of_element_located(self.checkbox_error_message))
         return self.driver.find_element(*self.checkbox_error_message).text
 
     def register_error_message(self):
-        register_element = WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.register_error)
-        )
+        self.driver.wait.until(EC.visibility_of_element_located(self.register_error))
         return self.driver.find_element(*self.register_error).text

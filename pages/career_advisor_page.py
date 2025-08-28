@@ -1,7 +1,5 @@
 from selenium.common import TimeoutException
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.common.by import By
+from utils.global_utils import *
 
 class CareerAdvisorPage:
     def __init__(self, driver):
@@ -31,193 +29,130 @@ class CareerAdvisorPage:
         self.failed_message = (By.XPATH, "//*[contains(text(), 'Nie udało się wysłać odpowiedzi')]")
 
     def abort_career_advisor(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(self.abort_button)
-        ).click()
+        self.driver.wait.until(EC.element_to_be_clickable(self.abort_button)).click()
 
     def change_career_advisor(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(self.change_career_advisor_button)
-        ).click()
+        self.driver.wait.until(EC.element_to_be_clickable(self.change_career_advisor_button)).click()
 
     def submit_career_advisor_changes(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(self.submit_career_advisor_button)
-        ).click()
+        self.driver.wait.until(EC.element_to_be_clickable(self.submit_career_advisor_button)).click()
 
     def is_succeed(self):
         try:
-            WebDriverWait(self.driver, 20).until(
-                EC.visibility_of_element_located(self.success_message)
-            )
+            self.driver.wait.until(EC.visibility_of_element_located(self.success_message))
             return True
         except TimeoutException:
             return False
 
     def is_failed(self):
         try:
-            WebDriverWait(self.driver, 20).until(
-                EC.visibility_of_element_located(self.failed_message)
-            )
+            self.driver.wait.until(EC.visibility_of_element_located(self.failed_message))
             return True
         except TimeoutException:
             return False
 
     def select_first_field(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.career_advisor_first_field)
-        ).click()
+        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_first_field)).click()
 
     def valid_first_field(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.career_advisor_first_field)
-        ).send_keys("piję herbatę")
+        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_first_field)).send_keys("piję herbatę")
 
     def invalid_first_field(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.career_advisor_first_field)
-        ).send_keys("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
+        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_first_field)).send_keys("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
 
     def select_second_field(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.career_advisor_second_field)
-        ).click()
+        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_second_field)).click()
 
     def valid_second_field(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.career_advisor_second_field)
-        ).send_keys("prezydentem")
+        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_second_field)).send_keys("prezydentem")
 
     def invalid_second_field(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.career_advisor_second_field)
-        ).send_keys("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
+        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_second_field)).send_keys("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
 
     def select_third_radio(self):
-        radio_buttons = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(self.career_advisor_third_radio)
-        )
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_third_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
     def select_fourth_radio(self):
-        radio_buttons = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(self.career_advisor_fourth_radio)
-        )
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_fourth_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
     def select_fifth_radio(self):
-        radio_buttons = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(self.career_advisor_fifth_radio)
-        )
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_fifth_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
     def select_sixth_radio(self):
-        radio_buttons = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(self.career_advisor_sixth_radio)
-        )
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_sixth_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
     def select_seventh_radio(self):
-        radio_buttons = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(self.career_advisor_seventh_radio)
-        )
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_seventh_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
     def select_eighth_radio(self):
-        radio_buttons = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(self.career_advisor_eighth_radio)
-        )
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_eighth_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
     def select_ninth_radio(self):
-        radio_buttons = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(self.career_advisor_ninth_radio)
-        )
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_ninth_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
     def select_tenth_radio(self):
-        radio_buttons = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(self.career_advisor_tenth_radio)
-        )
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_tenth_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
     def select_eleventh_radio(self):
-        radio_buttons = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(self.career_advisor_eleventh_radio)
-        )
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_eleventh_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
     def select_twelfth_radio(self):
-        radio_buttons = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(self.career_advisor_twelfth_radio)
-        )
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_twelfth_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
     def select_thirteenth_radio(self):
-        radio_buttons = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(self.career_advisor_thirteenth_radio)
-        )
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_thirteenth_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
     def select_fourteenth_radio(self):
-        radio_buttons = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(self.career_advisor_fourteenth_radio)
-        )
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_fourteenth_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
     def select_fifteenth_field(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located(self.career_advisor_fifteenth_field)
-        ).click()
+        self.driver.wait.until(EC.presence_of_element_located(self.career_advisor_fifteenth_field)).click()
 
     def valid_fifteenth_field(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.career_advisor_fifteenth_field)
-        ).send_keys("chemia")
+        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_fifteenth_field)).send_keys("chemia")
 
     def invalid_fifteenth_field(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.career_advisor_fifteenth_field)
-        ).send_keys("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
+        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_fifteenth_field)).send_keys("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
 
     def select_sixteenth_radio(self):
-        radio_buttons = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(self.career_advisor_sixteenth_radio)
-        )
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_sixteenth_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
     def select_seventeenth_field(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.presence_of_element_located(self.career_advisor_seventeenth_field)
-        ).click()
+        self.driver.wait.until(EC.presence_of_element_located(self.career_advisor_seventeenth_field)).click()
 
     def valid_seventeenth_field(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.career_advisor_seventeenth_field)
-        ).send_keys("matematyka")
+        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_seventeenth_field)).send_keys("matematyka")
 
     def invalid_seventeenth_field(self):
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.career_advisor_seventeenth_field)
-        ).send_keys(
-            "111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
+        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_seventeenth_field)).send_keys("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
 
     def select_eighteenth_radio(self):
-        radio_buttons = WebDriverWait(self.driver, 10).until(
-            EC.presence_of_all_elements_located(self.career_advisor_eighteenth_radio)
-        )
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_eighteenth_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
