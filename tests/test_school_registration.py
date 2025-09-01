@@ -1,4 +1,3 @@
-from pages.main_page import MainPage
 from conftest import *
 
 def test_school_registration_valid_data(driver):
@@ -19,6 +18,8 @@ def test_school_registration_valid_data(driver):
     main_page.fill_valid_school_contact_email()
     main_page.accept_school_terms()
     main_page.accept_school_gdpr()
+    main_page.click_on_voivodeship()
+    main_page.choose_voivodeship()
     main_page.submit_school_registration()
     assert main_page.school_error() is False
 
@@ -40,6 +41,8 @@ def test_school_registration_invalid_postal_code(driver):
     main_page.fill_valid_school_contact_email()
     main_page.accept_school_terms()
     main_page.accept_school_gdpr()
+    main_page.click_on_voivodeship()
+    main_page.choose_voivodeship()
     assert main_page.assert_input_length() is True
 
 def test_school_registration_invalid_nip(driver):

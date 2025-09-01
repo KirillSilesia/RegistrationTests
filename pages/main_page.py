@@ -50,11 +50,13 @@ class MainPage:
         self.school_gdpr_accepted = (By.ID, "gdprAccepted")
         self.silesian_voivodeship = (By.XPATH, "//*[contains(text(), 'śląskie')]")
         self.school_error_message = (By.CLASS_NAME, "school-reg-error")
-
-
+        self.logout_button = (By.CLASS_NAME, "btn btn--danger logout-btn hdr-btn")
 
     def go_to_registration(self):
         self.driver.wait.until( EC.element_to_be_clickable(self.registration_button)).click()
+
+    def log_out(self):
+        self.driver.wait.until(EC.element_to_be_clickable(self.logout_button)).click()
 
     def go_to_school_registration(self):
         self.driver.wait.until(EC.element_to_be_clickable(self.school_registration_button)).click()
