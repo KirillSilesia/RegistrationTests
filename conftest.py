@@ -38,7 +38,7 @@ def driver():
 def driver_with_login(driver):
     wait = WebDriverWait(driver, 10)
     login_button = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Zaloguj się')]"))
+        EC.element_to_be_clickable((By.XPATH, "//button[.//span[text()='Zaloguj się']]"))
     )
     login_button.click()
     email_input = wait.until(EC.element_to_be_clickable((By.ID, "login-email")))

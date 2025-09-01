@@ -13,19 +13,22 @@ class CareerAdvisorPage:
         self.career_advisor_third_radio = (By.NAME, "CREATIVE_ACTIVITIES")
         self.career_advisor_fourth_radio = (By.NAME, "TECHNICAL_TASKS")
         self.career_advisor_fifth_radio = (By.NAME, "ANALYTICAL_THINKING")
-        self.career_advisor_sixth_radio = (By.NAME, "HELPING_PEOPLE")
-        self.career_advisor_seventh_radio = (By.NAME, "TAKING_INITIATIVE")
-        self.career_advisor_eighth_radio = (By.NAME, "STRUCTURED_WORK")
-        self.career_advisor_ninth_radio = (By.NAME, "PUBLIC_SPEAKING_COMFORT")
-        self.career_advisor_tenth_radio = (By.NAME, "WORKING_STYLE")
-        self.career_advisor_eleventh_radio = (By.NAME, "FOCUS_DURATION")
-        self.career_advisor_twelfth_radio = (By.NAME, "INDOOR_OR_OUTDOOR")
-        self.career_advisor_thirteenth_radio = (By.NAME, "ORGANIZATION_SKILLS")
-        self.career_advisor_fourteenth_radio = (By.NAME, "GROUP_STRESS")
-        self.career_advisor_fifteenth_field = (By.ID, "BOREDOM_CAUSES")
-        self.career_advisor_sixteenth_radio = (By.NAME, "STRESS_REACTIONS")
-        self.career_advisor_seventeenth_field = (By.ID, "FAVORITE_SUBJECT")
-        self.career_advisor_eighteenth_radio = (By.NAME, "SCHOOL_PREFERENCE")
+        self.career_advisor_sixth_radio = (By.NAME, "DIGITAL_TECH_INTERESTS")
+        self.career_advisor_seventh_radio = (By.NAME, "HELPING_PEOPLE")
+        self.career_advisor_eighth_radio = (By.NAME, "TAKING_INITIATIVE")
+        self.career_advisor_ninth_radio = (By.NAME, "STRUCTURED_WORK")
+        self.career_advisor_tenth_radio = (By.NAME, "PUBLIC_SPEAKING_COMFORT")
+        self.career_advisor_eleventh_radio = (By.NAME, "WORKING_STYLE")
+        self.career_advisor_twelfth_radio = (By.NAME, "FOCUS_DURATION")
+        self.career_advisor_thirteenth_radio = (By.NAME, "INDOOR_OR_OUTDOOR")
+        self.career_advisor_fourteenth_radio = (By.NAME, "ORGANIZATION_SKILLS")
+        self.career_advisor_fifteenth_radio = (By.NAME, "LEARNING_STYLE")
+        self.career_advisor_sixteenth_radio = (By.NAME, "GROUP_STRESS")
+        self.career_advisor_seventeenth_field = (By.ID, "BOREDOM_CAUSES")
+        self.career_advisor_eighteenth_radio = (By.NAME, "STRESS_REACTIONS")
+        self.career_advisor_nineteenth_field = (By.ID, "FAVORITE_SUBJECT")
+        self.career_advisor_twenty_radio = (By.NAME, "SCHOOL_PREFERENCE")
+        self.career_advisor_twentyone_radio = (By.NAME, "CURIOSITY_FUTURE_TECH")
         self.failed_message = (By.XPATH, "//*[contains(text(), 'Nie udało się wysłać odpowiedzi')]")
 
     def abort_career_advisor(self):
@@ -129,17 +132,8 @@ class CareerAdvisorPage:
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
-    def select_fifteenth_field(self):
-        self.driver.wait.until(EC.presence_of_element_located(self.career_advisor_fifteenth_field)).click()
-
-    def valid_fifteenth_field(self):
-        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_fifteenth_field)).send_keys("chemia")
-
-    def invalid_fifteenth_field(self):
-        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_fifteenth_field)).send_keys("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
-
-    def select_sixteenth_radio(self):
-        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_sixteenth_radio))
+    def select_fifteenth_radio(self):
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_fifteenth_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
 
@@ -147,12 +141,36 @@ class CareerAdvisorPage:
         self.driver.wait.until(EC.presence_of_element_located(self.career_advisor_seventeenth_field)).click()
 
     def valid_seventeenth_field(self):
-        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_seventeenth_field)).send_keys("matematyka")
+        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_seventeenth_field)).send_keys("uczenie się")
 
     def invalid_seventeenth_field(self):
         self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_seventeenth_field)).send_keys("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
 
+    def select_sixteenth_radio(self):
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_sixteenth_radio))
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
+        radio_buttons[0].click()
+
+    def select_nineteenth_field(self):
+        self.driver.wait.until(EC.presence_of_element_located(self.career_advisor_nineteenth_field)).click()
+
+    def valid_nineteenth_field(self):
+        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_nineteenth_field)).send_keys("matematyka")
+
+    def invalid_nineteenth_field(self):
+        self.driver.wait.until(EC.visibility_of_element_located(self.career_advisor_nineteenth_field)).send_keys("111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111")
+
     def select_eighteenth_radio(self):
         radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_eighteenth_radio))
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
+        radio_buttons[0].click()
+
+    def select_twenty_radio(self):
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_twenty_radio))
+        self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
+        radio_buttons[0].click()
+
+    def select_twentyone_radio(self):
+        radio_buttons = self.driver.wait.until(EC.presence_of_all_elements_located(self.career_advisor_twentyone_radio))
         self.driver.execute_script("arguments[0].scrollIntoView(true);", radio_buttons[0])
         radio_buttons[0].click()
