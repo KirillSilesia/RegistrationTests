@@ -82,6 +82,10 @@ def driver_with_admin_login(driver):
     main_page.choose_voivodeship()
     main_page.submit_school_registration()
 
+    main_page.go_to_suggestions()
+    main_page.test_admin_suggestion_message()
+    main_page.send_suggestion()
+
     login_button = wait.until(
         EC.element_to_be_clickable((By.XPATH, "//button[.//span[text()='Zaloguj się']]"))
     )

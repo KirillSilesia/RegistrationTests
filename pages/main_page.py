@@ -171,6 +171,9 @@ class MainPage:
     def valid_suggestion_message(self):
         self.driver.wait.until(EC.element_to_be_clickable(self.suggestions_input)).send_keys("Wow! cool app!")
 
+    def test_admin_suggestion_message(self):
+        self.driver.wait.until(EC.element_to_be_clickable(self.suggestions_input)).send_keys("Testing")
+
     def invalid_suggestion_message(self, chunk="text", chunk_size=100, repetitions=501):
         field = self.driver.find_element(*self.suggestions_input)
         full_text = chunk * repetitions

@@ -34,21 +34,22 @@ class LoggedInPage:
         self.approve_button = (By.XPATH, "//button[contains(text(), 'Akceptuj')]")
         self.approved_school_applications = (By.XPATH, "//button[contains(@class, 'filter-btn-segmented') and text()='Zaakceptowane']")
         self.last_school_application = None
+        self.last_suggestion = None
         self.highest_id = None
         self.last_school_present = (
             By.XPATH,
             f"//div[contains(@class, 'registration-card') and contains(@class, 'pro')]"
             f"[.//span[@class='meta-label' and text()='ID:']/following-sibling::span[@class='meta-value' and normalize-space(text())='{self.highest_id}']]"
         )
+        self.suggestion_text = (By.XPATH, "//*[contains(text(), 'Testing')]")
         self.description_field = (By.CLASS_NAME, "input-textarea-pro")
         self.reject_button = (By.XPATH, "//button[contains(text(), 'Odrzuć')]")
         self.rejected_applications = (By.XPATH, "//button[contains(@class, 'filter-btn-segmented') and text()='Odrzucone']")
         self.failed_message = (By.CLASS_NAME, "success-message")
+        self.suggestions_button = (By.XPATH, "//button[contains(@class, 'admin-tab') and text()='Sugestie']")
 
     def find_last_school_application(self):
-        wait = WebDriverWait(self.driver, 10)
-
-        cards = wait.until(EC.presence_of_all_elements_located(
+        cards = self.driver.wait.until(EC.presence_of_all_elements_located(
             (By.CSS_SELECTOR, "div.registration-card.pro")
         ))
 
@@ -80,6 +81,49 @@ class LoggedInPage:
     def go_to_learning_profile(self):
         self.driver.wait.until(EC.element_to_be_clickable(self.learning_profile_button)).click()
 
+    def go_to_suggestions(self):
+        self.driver.wait.until(EC.element_to_be_clickable(self.suggestions_button)).click()
+
+    def find_last_suggestion(self):
+        rows = self.driver.wait.until(EC.presence_of_all_elements_located(
+            (By.CSS_SELECTOR, "tr")
+        ))
+
+        highest_id = -1
+        highest_row = None
+
+        for row in rows:
+            try:
+                td_elements = row.find_elements(By.TAG_NAME, "td")
+                if not td_elements:
+                    continue
+
+                id_text = td_elements[0].text.strip()
+                id_value = int(id_text)
+
+                if id_value > highest_id:
+                    highest_id = id_value
+                    highest_row = row
+            except Exception:
+                continue
+
+        if not highest_row:
+            raise Exception("No valid rows with numeric IDs found.")
+
+        try:
+            self.last_suggestion = highest_row.find_element(
+                By.XPATH, ".//button[contains(text(), 'Podgląd')]"
+            )
+        except NoSuchElementException:
+            raise Exception(f"'Podgląd' button not found in row with ID {highest_id}")
+
+        self.highest_id = highest_id
+
+    def go_to_last_suggestion(self):
+        if not self.last_suggestion:
+            raise Exception("last_suggestion is not set. Call find_last_suggestion() first.")
+        self.driver.wait.until(EC.element_to_be_clickable(self.last_suggestion)).click()
+
     def add_description_to_school_application(self):
         self.driver.wait.until(EC.element_to_be_clickable(self.description_field)).send_keys("test")
 
@@ -98,6 +142,15 @@ class LoggedInPage:
         try:
             self.driver.wait.until(
                 EC.presence_of_element_located(self.last_school_present)
+            )
+            return True
+        except TimeoutException:
+            return False
+
+    def is_same_suggestion(self):
+        try:
+            self.driver.wait.until(
+                EC.presence_of_element_located(self.suggestion_text)
             )
             return True
         except TimeoutException:
