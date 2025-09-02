@@ -1,4 +1,4 @@
-from selenium.common import TimeoutException, NoSuchElementException
+from selenium.common import TimeoutException
 from utils.global_utils import *
 
 class CareerAdvisorPage:

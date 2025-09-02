@@ -1,4 +1,3 @@
-from pages.main_page import MainPage
 from pages.registration_page import RegistrationPage
 from conftest import *
 
