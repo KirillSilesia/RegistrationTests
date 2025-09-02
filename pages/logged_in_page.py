@@ -81,6 +81,13 @@ class LoggedInPage:
     def go_to_learning_profile(self):
         self.driver.wait.until(EC.element_to_be_clickable(self.learning_profile_button)).click()
 
+    def is_learning_profile_modal_open(self):
+        try:
+            modal = self.driver.find_element(By.CSS_SELECTOR, ".modal-content")
+            return modal.is_displayed()
+        except NoSuchElementException:
+            return False
+
     def go_to_suggestions(self):
         self.driver.wait.until(EC.element_to_be_clickable(self.suggestions_button)).click()
 
@@ -197,7 +204,7 @@ class LoggedInPage:
     def click_on_theme(self):
         self.driver.wait.until(EC.element_to_be_clickable(self.theme_changer)).click()
 
-    def  choose_dark_theme(self):
+    def choose_dark_theme(self):
         button = self.driver.wait.until(EC.element_to_be_clickable(self.dark_theme))
         self.driver.execute_script("arguments[0].click();", button)
 

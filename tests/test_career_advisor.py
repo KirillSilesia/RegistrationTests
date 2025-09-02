@@ -26,7 +26,7 @@ def test_change_career_advisor_empty_fields(driver_with_login):
     logged_in_page.go_to_career_advisor()
     career_advisor_page.change_career_advisor()
     career_advisor_page.submit_career_advisor_changes()
-    assert career_advisor_page.is_succeed() is not True
+    assert career_advisor_page.is_input_invalid("#FREE_TIME_ACTIVITY") is True
 
 def test_change_career_advisor_invalid_data(driver_with_login):
     logged_in_page = LoggedInPage(driver_with_login)

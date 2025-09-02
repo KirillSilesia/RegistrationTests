@@ -34,6 +34,9 @@ def driver():
 @pytest.fixture(scope="function")
 def driver_with_login(driver):
     wait = WebDriverWait(driver, 10)
+    chrome_options = Options()
+    chrome_options.add_experimental_option('prefs', {'intl.accept_languages': 'pl'})
+    chrome_options.add_argument("--lang=pl")
     login_button = wait.until(
         EC.element_to_be_clickable((By.XPATH, "//button[.//span[text()='Zaloguj się']]"))
     )
@@ -60,6 +63,9 @@ def driver_with_login(driver):
 
 @pytest.fixture(scope="function")
 def driver_with_admin_login(driver):
+    chrome_options = Options()
+    chrome_options.add_experimental_option('prefs', {'intl.accept_languages': 'pl'})
+    chrome_options.add_argument("--lang=pl")
     wait = WebDriverWait(driver, 10)
 
     main_page = MainPage(driver)

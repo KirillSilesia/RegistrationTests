@@ -1,4 +1,4 @@
-from selenium.common import TimeoutException
+from selenium.common import TimeoutException, NoSuchElementException
 from utils.global_utils import *
 
 class CareerAdvisorPage:
@@ -33,6 +33,10 @@ class CareerAdvisorPage:
 
     def abort_career_advisor(self):
         self.driver.wait.until(EC.element_to_be_clickable(self.abort_button)).click()
+
+    def is_input_invalid(self, input_selector):
+        script = f"return !document.querySelector('{input_selector}').checkValidity();"
+        return self.driver.execute_script(script)
 
     def change_career_advisor(self):
         self.driver.wait.until(EC.element_to_be_clickable(self.change_career_advisor_button)).click()

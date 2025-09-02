@@ -60,10 +60,20 @@ def test_learning_profile_invalid_data(driver_with_login):
     logged_in_page.submit_learning_profile()
     assert logged_in_page.is_error() is True
 
+# def test_learning_profile_empty_fields(driver_with_login):
+#     logged_in_page = LoggedInPage(driver_with_login)
+#
+#     logged_in_page.go_to_learning_profile()
+#     logged_in_page.change_learning_profile()
+#     logged_in_page.submit_learning_profile()
+#     time.sleep(5)
+#     assert (logged_in_page.is_pop_up_error()) is True
+
 def test_learning_profile_empty_fields(driver_with_login):
     logged_in_page = LoggedInPage(driver_with_login)
 
     logged_in_page.go_to_learning_profile()
     logged_in_page.change_learning_profile()
     logged_in_page.submit_learning_profile()
-    assert logged_in_page.is_succeed() is not True
+
+    assert logged_in_page.is_learning_profile_modal_open() is True
