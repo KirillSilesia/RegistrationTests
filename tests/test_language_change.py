@@ -1,4 +1,3 @@
-from pages.main_page import MainPage
 from conftest import *
 
 def test_language_change_to_english(driver):
