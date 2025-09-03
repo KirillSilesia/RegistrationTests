@@ -105,6 +105,7 @@ class SchoolRegistrationPage:
         self.driver.find_element(*self.school_contact_phone).send_keys("0123456789")
 
     def submit_school_registration(self):
+        self.driver.wait.until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Wyślij wniosek')]")))
         self.driver.wait.until(EC.element_to_be_clickable((By.XPATH, "//*[contains(text(), 'Wyślij wniosek')]"))).click()
 
     def assert_input_length(self):
