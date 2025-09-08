@@ -104,7 +104,7 @@ RegistrationTests/
 │   ├── __init__.py             # Marks the directory as a Python package
 │   ├── email_generators.py     # Functions to generate random email addresses
 │   ├── nip_generators.py       # Function to generate random NIP (tax identification) numbers
-│   └── password_generators.py  # (Presumably) Functions to generate random passwords (not present in provided info, but likely)
+│   └── password_generators.py  # Functions to generate random passwords
 └── pages/                    # Page Object Model (POM) implementation
     ├── __init__.py             # Marks the directory as a Python package
     ├── admin_profile_page.py   # Page object for the admin profile page
